@@ -1,61 +1,65 @@
-# TDD Codex Skill
+# Personal Skills
 
-This repository contains a Codex skill for test-driven development.
+This repository contains Codex skills.
 
-The skill lives in:
+## Included Skill
+
+### `address-pr-review-feedback`
+
+Location:
 
 ```text
-skills/tdd
+skills/address-pr-review-feedback
 ```
 
-## What It Does
+This skill helps Codex address pull request feedback on the current branch. It collects comments from GitHub review threads, review bodies, issue-style PR comments, and the PR body itself, then fixes only comments that point to real problems.
 
-The `tdd` skill guides Codex through a red-green-refactor workflow for feature work and bug fixes. It emphasizes behavior-focused tests through public interfaces, incremental tracer-bullet development, and refactoring only after tests are green.
+It is designed for review-fix workflows where Codex should:
 
-Use it when you want Codex to:
+- Run `git pull` before making changes.
+- Stay on the current branch.
+- Inspect PR comments, review bodies, line comments, and PR body feedback.
+- Classify comments as actionable, already fixed, non-actionable, false positive, or duplicate.
+- Use TDD before production changes.
+- Use parallel subagents for independent review comment groups.
+- Launch implementation and review subagents with `gpt-5.5` and `reasoning_effort: low`.
+- Avoid redundant tests.
+- Reply to and resolve GitHub conversations with concrete fix locations or technical explanations.
+- Request `@codex review` or `@greptile` only when that bot had actionable feedback.
 
-- Build a feature test-first.
-- Fix a bug with a failing regression test before implementation.
-- Use the red-green-refactor loop.
-- Prefer integration-style tests over implementation-coupled tests.
-- Avoid writing all tests upfront before learning from the first implementation slice.
+## Required Companion Skills
 
-## Core Principles
+For this skill to work correctly, the Codex environment or skills repository should also include these companion skills:
 
-- Tests should verify observable behavior, not implementation details.
-- Write one failing test, implement the minimum code to pass, then repeat.
-- Avoid horizontal slicing: do not write all tests first and all code afterward.
-- Use public interfaces so tests survive internal refactors.
-- Refactor only after the current behavior is green.
+- [`tdd`](skills/tdd): required for test-first implementation and red-green-refactor discipline.
+- [`subagent-driven-development`](skills/subagent-driven-development): required for parallel implementation and review workflows using subagents.
 
-## Included References
+If those folders are not present in this repository, install them into your Codex skills directory before using `address-pr-review-feedback`.
 
-The skill includes supporting reference files:
+Expected installed layout:
 
-- `tests.md`: examples of behavior-focused tests.
-- `mocking.md`: guidance for when mocking is appropriate.
-- `deep-modules.md`: guidance for small interfaces with deep implementations.
-- `interface-design.md`: interface design for testability.
-- `refactoring.md`: refactor candidates after green tests.
+```text
+~/.codex/skills/address-pr-review-feedback
+~/.codex/skills/tdd
+~/.codex/skills/subagent-driven-development
+```
 
 ## Installation
 
-Install by copying or symlinking the skill folder into your Codex skills directory:
+Install the included skill by copying or symlinking it into your Codex skills directory:
 
 ```bash
-ln -s /path/to/this/repo/skills/tdd ~/.codex/skills/tdd
+ln -s /path/to/this/repo/skills/address-pr-review-feedback ~/.codex/skills/address-pr-review-feedback
 ```
 
 Restart Codex after installing so the skill is picked up.
 
 ## Usage
 
-Ask Codex to use TDD, test-first development, or red-green-refactor. For example:
+Use this skill when asking Codex to address PR review feedback without creating a new branch:
 
 ```text
-Use tdd to fix this bug with a regression test first.
+Use address-pr-review-feedback to review the PR comments on this branch and fix the valid ones.
 ```
 
-```text
-Build this feature with red-green-refactor.
-```
+The skill assumes the current branch is the branch being reviewed.
