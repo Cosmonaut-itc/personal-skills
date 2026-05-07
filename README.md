@@ -1,6 +1,29 @@
 # Personal Skills
 
-This repository contains Codex skills.
+This repository contains Codex skills and reusable agent workflow docs.
+
+## Included Agent Docs
+
+### `docs/agents`
+
+Location:
+
+```text
+docs/agents
+```
+
+This directory is the reusable base for agent workflow documentation across
+projects. It covers issue tracking, triage labels, implementation workflow,
+review cycles, review feedback, and domain docs expectations.
+
+Install or update it in a project with:
+
+```bash
+rsync -av --delete docs/agents/ /path/to/project/docs/agents/
+```
+
+Keep project-specific details in the target project's `AGENTS.md`,
+`CONTEXT.md`, ADRs, or local docs.
 
 ## Included Skill
 
