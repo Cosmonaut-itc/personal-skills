@@ -48,7 +48,7 @@ It is designed for review-fix workflows where Codex should:
 - Launch implementation and review subagents with `gpt-5.5` and `reasoning_effort: low`.
 - Avoid redundant tests.
 - Reply to and resolve GitHub conversations with concrete fix locations or technical explanations.
-- Request `@codex review` or `@greptile` only when that bot had actionable feedback.
+- Request `@codex review` only when Codex had actionable feedback.
 
 ## Required Companion Skills
 

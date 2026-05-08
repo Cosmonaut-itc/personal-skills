@@ -1,6 +1,6 @@
 ---
 name: address-pr-review-feedback
-description: Review the pull request for the current branch, gather actionable feedback from GitHub review threads, review bodies, issue comments, and the PR body itself (including bot summaries from Codex or Greptile), decide which comments reflect real issues, implement fixes with TDD and parallel subagents using GPT-5.5 with low reasoning, avoid redundant tests, resolve conversations with concrete replies, and request re-review only from bots that actually left actionable feedback. Use when asked to address PR comments without creating a new branch.
+description: Review the pull request for the current branch, gather actionable feedback from GitHub review threads, review bodies, issue comments, and the PR body itself (including Codex review summaries), decide which comments reflect real issues, implement fixes with TDD and parallel subagents using GPT-5.5 with low reasoning, avoid redundant tests, resolve conversations with concrete replies, and request @codex review only when Codex left actionable feedback. Use when asked to address PR comments without creating a new branch.
 ---
 
 # Address PR Review Feedback
@@ -26,9 +26,9 @@ Prefer GitHub tools when available and fall back to `gh` only when needed. Do no
 - review threads and line comments
 - top-level review bodies
 - issue-style PR comments
-- the PR body itself, because Greptile or similar bots may leave feedback there
-- Verify that comments actually exist before starting fix work. Do not assume both Codex and Greptile commented.
-- De-duplicate repeated feedback across humans, Codex, Greptile, and summary comments.
+- the PR body itself, because reviewers or bots may leave feedback there
+- Verify that comments actually exist before starting fix work. Do not assume Codex commented.
+- De-duplicate repeated feedback across humans, Codex, and summary comments.
 
 ### 3. Classify every comment
 
@@ -91,23 +91,19 @@ Good resolution replies are concrete:
 - Refresh the PR state before implementation and again after pushing.
 - Build the list of bot sources from the latest actionable feedback, not from assumptions:
 - `codex`
-- `greptile`
 - humans or other reviewers
 - If a bot has no comments, no actionable feedback, or only duplicates and false positives, treat it as not requiring a follow-up ping.
-- If Greptile put feedback only in the PR body, count that as Greptile feedback.
-- If Codex has no remaining actionable feedback but Greptile does, ping only Greptile. Apply the inverse rule as well.
+- If Codex has no remaining actionable feedback, do not request another Codex review.
 
 ## Dynamic Review Routing
 
 - Avoid unnecessary bot reviews.
 - Use the de-duplicated actionable source list to decide who to ping at the end.
-- If only Codex had actionable feedback, post only `@codex review`.
-- If only Greptile had actionable feedback, post only `@greptile`.
-- If both had actionable feedback, post two separate comments: `@codex review` and `@greptile`.
-- If one bot had comments but all of them were duplicates, already fixed, or false positives, do not ping that bot again.
-- If neither bot produced actionable feedback, skip both bot pings.
+- If Codex had actionable feedback, post `@codex review`.
+- If Codex had comments but all of them were duplicates, already fixed, or false positives, do not ping Codex again.
+- If Codex produced no actionable feedback, skip the Codex review ping.
 
-Do not spend review credits on bots that did not contribute relevant feedback in the current PR state.
+Do not spend review credits when Codex did not contribute relevant actionable feedback in the current PR state.
 
 ## Suggested Execution Order
 
@@ -123,7 +119,7 @@ Do not spend review credits on bots that did not contribute relevant feedback in
 10. Push the current branch.
 11. Reply to every resolved conversation with either the fix location or the reason no change was needed.
 12. Resolve the conversations.
-13. Post targeted re-review comments only for the bots that actually need another pass.
+13. Post `@codex review` only when Codex had actionable feedback and needs another pass.
 
 ## Guardrails
 
@@ -133,4 +129,4 @@ Do not spend review credits on bots that did not contribute relevant feedback in
 - Do not treat every bot suggestion as valid. Validate it against the code and tests.
 - Do not add tests that merely restate existing coverage.
 - Do not stop after code changes; finish the GitHub hygiene work too.
-- Do not ask Codex or Greptile for another review unless the prior feedback justified it.
+- Do not ask Codex for another review unless the prior feedback justified it.
