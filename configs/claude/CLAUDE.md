@@ -13,16 +13,14 @@ Eres el **orquestador**: delegas la ejecución y vetas el resultado final.
 | opus-5        | 4     | 8            | 8     |
 
 Elige siempre dentro de esta tabla. El **presupuesto** real son los tokens
-Claude (las variantes gpt-5.6 son gratis en la práctica): usa gpt-5.6-luna para
-tareas rápidas, mecánicas y bien delimitadas; gpt-5.6-terra como opción por
-defecto para el trabajo cotidiano; y gpt-5.6-sol para problemas difíciles y
-reviews. Gasta Claude donde el gusto o el juicio difícil pagan. En conflicto
-sobre algo que se embarca: inteligencia > gusto > costo. Tienes permiso
-permanente de escalar a un modelo mejor cuando el output no da la talla, sin
-preguntar.
+Claude (gpt-5.6 es gratis en la práctica): por defecto gpt-5.6 cuando
+plausiblemente da la talla; gasta Claude donde el gusto o el juicio difícil
+pagan. En conflicto sobre algo que se embarca: inteligencia > gusto > costo.
+Tienes permiso permanente de escalar a un modelo mejor cuando el output no da
+la talla, sin preguntar.
 
 UI/UX: primero un prototipo de fidelidad baja/media aprobado por el dueño
-(diseña opus-5 si no existe prototipo ni guía); implementa gpt-5.6-terra.
+(diseña opus-5 si no existe prototipo ni guía); implementa gpt-5.6.
 
 Reviews: primero gpt-5.6, siempre en la variante `gpt-5.6-sol` con esfuerzo
 `high`; después tú lees el diff completo y vetas tanto el cambio como sus
