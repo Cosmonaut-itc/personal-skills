@@ -2,6 +2,20 @@
 
 This repository contains Codex skills and reusable agent workflow docs.
 
+## Global Claude Code Configuration
+
+The versioned copy of the global Claude Code instructions is stored at:
+
+```text
+configs/claude/CLAUDE.md
+```
+
+Restore it locally with:
+
+```bash
+cp configs/claude/CLAUDE.md ~/.claude/CLAUDE.md
+```
+
 ## Included Agent Docs
 
 ### `docs/agents`
