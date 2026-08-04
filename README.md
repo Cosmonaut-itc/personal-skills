@@ -13,7 +13,9 @@ configs/claude/CLAUDE.md
 Restore it locally with:
 
 ```bash
+mkdir -p ~/.claude/docs
 cp configs/claude/CLAUDE.md ~/.claude/CLAUDE.md
+cp configs/claude/docs/codex-delegation.md ~/.claude/docs/codex-delegation.md
 ```
 
 ## Included Agent Docs
